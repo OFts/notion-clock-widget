@@ -2,25 +2,33 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Notion Clock Widget</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
 </head>
 <body>
   <div id="clock-container">
-    <div class="clock" id="clock1">
+    <!-- Reloj 1: Guatemala -->
+    <div class="clock">
       <div class="label">GT</div>
-      <div class="time">--:--</div>
+      <div class="time" id="time1">--:--</div>
     </div>
-    <div class="clock" id="clock2">
+
+    <!-- Reloj 2: Colombia -->
+    <div class="clock">
       <div class="label">CO</div>
-      <div class="time">--:--</div>
+      <div class="time" id="time2">--:--</div>
     </div>
-    <div class="clock" id="clock3">
-      <div class="label" id="tz3-label">CT</div>
-      <div class="time">--:--</div>
+
+    <!-- Reloj 3: selector -->
+    <div class="clock">
+      <select id="tz3-select">
+        <!-- Opciones generadas por JS -->
+      </select>
+      <div class="time" id="time3">--:--</div>
     </div>
   </div>
+
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,37 +1,53 @@
-// Zonas horarias por defecto
-const zones = ['America/Guatemala', 'America/Bogota'];
-// Permite cambiar la 3ª zona con ?tz3=Europe/Madrid
-const params = new URLSearchParams(location.search);
-const tz3 = params.get('tz3') || 'America/Chicago';
-zones.push(tz3);
+// Zonas fijas
+const fixedZones = [
+  { tz: 'America/Guatemala', el: 'time1' },
+  { tz: 'America/Bogota',   el: 'time2' },
+];
 
-// Etiqueta corta para el tercer reloj
-const tz3Label = document.getElementById('tz3-label');
-const parts = tz3.split('/');
-tz3Label.textContent = parts[parts.length - 1]
-  .replace(/_/g, ' ')
-  .split(' ')
-  .map(w => w[0])
-  .join('')
-  .toUpperCase();
-tz3Label.title = tz3;
+// Zonas para el selector, ahora incluyendo California
+const commonZones = [
+  { label: 'Pacific Time (US)',  tz: 'America/Los_Angeles' },
+  { label: 'Mountain Time (US)', tz: 'America/Denver'          },
+  { label: 'Central Time (US)',  tz: 'America/Chicago'         },
+  { label: 'Eastern Time (US)',  tz: 'America/New_York'        },
+  { label: 'London (UK)',        tz: 'Europe/London'           },
+  { label: 'Madrid (ES)',        tz: 'Europe/Madrid'           },
+  { label: 'Tokyo (JP)',         tz: 'Asia/Tokyo'              },
+  { label: 'Sydney (AU)',        tz: 'Australia/Sydney'        },
+];
+
+const select3 = document.getElementById('tz3-select');
+// Poblar opciones
+commonZones.forEach(({label, tz}) => {
+  const opt = document.createElement('option');
+  opt.value = tz;
+  opt.textContent = label;
+  select3.appendChild(opt);
+});
+// Valor por defecto
+select3.value = commonZones[0].tz;
 
 function updateClocks() {
   const now = new Date();
-  zones.forEach((tz, i) => {
-    const timeStr = new Intl.DateTimeFormat(navigator.language, {
-      hour: 'numeric',
-      minute: 'numeric',
-      hour12: true,      // poner false para 24h
-      timeZone: tz
+  // Relojes fijos
+  fixedZones.forEach(({tz, el}) => {
+    document.getElementById(el).textContent = new Intl.DateTimeFormat(navigator.language, {
+      hour: 'numeric', minute: 'numeric',
+      hour12: true, timeZone: tz
     }).format(now);
-    document.querySelector(`#clock${i+1} .time`).textContent = timeStr;
   });
+  // Reloj dinámico
+  const tz3 = select3.value;
+  document.getElementById('time3').textContent = new Intl.DateTimeFormat(navigator.language, {
+    hour: 'numeric', minute: 'numeric',
+    hour12: true, timeZone: tz3
+  }).format(now);
 }
 
-// Actualiza dinámicamente: al cargar, cada 30 s y al volver de pestaña oculta
+// Dinámico sin reload
 updateClocks();
-setInterval(updateClocks, 30_000);
+setInterval(updateClocks, 30000);
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden) updateClocks();
 });
+select3.addEventListener('change', updateClocks);

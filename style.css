@@ -6,9 +6,8 @@
 }
 
 body {
-  /* Forzar fondo y texto de Notion Light */
-  background-color: #FFFFFF;    /* Notion page background light :contentReference[oaicite:0]{index=0} */
-  color:            #37352F;    /* Notion primary text light :contentReference[oaicite:1]{index=1} */
+  background-color: #FFFFFF;    /* Notion Light bg */
+  color:            #37352F;    /* Notion Light text */
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   display: flex;
   justify-content: center;
@@ -23,39 +22,83 @@ body {
   gap: 1.5rem;
 }
 
+/* En pantallas de escritorio */
+@media (min-width: 600px) {
+  #clock-container {
+    gap: 2.5rem;   /* más espacio horizontal en PC */
+  }
+}
+
 .clock {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
+/* Etiquetas */
 .label {
-  font-size:    1rem;   /* más grande */
-  font-weight:  600;    /* más grueso */
+  font-size:    1rem;
+  font-weight:  600;
   margin-bottom: 0.25rem;
   text-transform: uppercase;
   letter-spacing: 0.03em;
-  /* color hereda body.color */
+  color: inherit;
 }
 
+/* Horas */
 .time {
   font-size:     1.75rem;
   font-weight:   500;
   letter-spacing: 0.05em;
-  /* color hereda body.color */
+  color: inherit;
 }
 
-/* Dark mode: forzar fondo y texto de Notion Dark */
+/* Selector estilo Notion */
+#tz3-select {
+  font-size:    1rem;
+  font-weight:  500;
+  padding:      0.25rem 0.5rem;
+  border:       1px solid #E1E3E5;  /* Notion divider */
+  border-radius:3px;
+  background-color: #F5F5F5;        /* ligero gris para diferenciarlo */
+  color: inherit;
+  appearance: none;                 /* quita flecha nativa */
+  margin-bottom: 0.25rem;
+  cursor: pointer;
+}
+/* Intento de styling de opciones (no garantizado en todos los navegadores) */
+#tz3-select option {
+  background-color: #FFFFFF;
+  color: inherit;
+}
+
+/* Focus accesible */
+#tz3-select:focus {
+  outline: 2px solid #A0A0A0;
+}
+
+/* Dark mode */
 @media (prefers-color-scheme: dark) {
   body {
-    background-color: #191919;  /* Notion page background dark :contentReference[oaicite:2]{index=2} */
-    color:            #D4D4D4;  /* Notion primary text dark :contentReference[oaicite:3]{index=3} */
+    background-color: #191919;     /* Notion Dark bg */
+    color:            #D4D4D4;     /* Notion Dark text */
+  }
+  #tz3-select {
+    background-color: #2B2B2B;     /* selector oscuro */
+    border: 1px solid #3A3A3A;
+  }
+  #tz3-select option {
+    background-color: #191919;
+    color: inherit;
   }
 }
 
-/* Ajuste de tamaño en pantallas angostas */
+/* Ajuste en pantallas angostas */
 @media (max-width: 400px) {
   .time {
     font-size: 1.5rem;
+  }
+  #tz3-select {
+    font-size: 0.9rem;
   }
 }
