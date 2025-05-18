@@ -1,0 +1,61 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  /* Forzar fondo y texto de Notion Light */
+  background-color: #FFFFFF;    /* Notion page background light :contentReference[oaicite:0]{index=0} */
+  color:            #37352F;    /* Notion primary text light :contentReference[oaicite:1]{index=1} */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+#clock-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.label {
+  font-size:    1rem;   /* más grande */
+  font-weight:  600;    /* más grueso */
+  margin-bottom: 0.25rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  /* color hereda body.color */
+}
+
+.time {
+  font-size:     1.75rem;
+  font-weight:   500;
+  letter-spacing: 0.05em;
+  /* color hereda body.color */
+}
+
+/* Dark mode: forzar fondo y texto de Notion Dark */
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: #191919;  /* Notion page background dark :contentReference[oaicite:2]{index=2} */
+    color:            #D4D4D4;  /* Notion primary text dark :contentReference[oaicite:3]{index=3} */
+  }
+}
+
+/* Ajuste de tamaño en pantallas angostas */
+@media (max-width: 400px) {
+  .time {
+    font-size: 1.5rem;
+  }
+}
